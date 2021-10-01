@@ -1,0 +1,131 @@
+﻿@page
+@model Veterinaria.App.Presentacion.Pages.AdminVeterinarioModel
+@{
+}
+
+<h3 style="color: #929292; font-size: 24px; font-weight: 400; margin-top: 25px; margin-bottom: 25px;">
+    @Model.titulo
+</h3>
+
+
+<div id="accordion">
+
+    <div class="card">
+
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#id-collapse-admin-veterinario"
+                    aria-expanded="true" aria-controls="id-collapse-admin-veterinario">
+                    Administrar veterinario
+                </button>
+            </h5>
+        </div>
+
+        <div id="id-collapse-admin-veterinario" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <form>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="id-nombre">Nombre</label>
+                                    <input id="id-nombre" type="email" class="form-control" aria-describedby="emailHelp"
+                                        placeholder="Digita tu nombre aquí">
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                                        anyone
+                                        else.</small>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="id-telefono">Teléfono</label>
+                                    <input id="id-telefono" type="tel" class="form-control"
+                                        placeholder="Digita tu teléfono">
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="id-edad">Edad</label>
+                                    <input id="id-edad" type="number" class="form-control" placeholder="Digita tu edad">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="id-direccion">Dirección</label>
+                                    <input id="id-direccion" type="text" class="form-control"
+                                        placeholder="Digita tu dirección">
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="id-correo">Correo</label>
+                                    <input id="id-correo" type="email" class="form-control"
+                                        placeholder="Digita tu correo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container" style="margin: 20px 20px 20px 15px;">
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary" style="margin-right: 20px">Agregar</button>
+                            <button type="submit" class="btn btn-primary bg-success"
+                                style="margin-right: 20px">Editar</button>
+                            <button type="submit" class="btn btn-primary bg-danger">Eliminar</button>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#id-collapse-lista-veterinarios"
+                    aria-expanded="true" aria-controls="id-collapse-lista-veterinarios">
+                    Lista veterinarios
+                </button>
+            </h5>
+        </div>
+
+        <div id="id-collapse-lista-veterinarios" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Correo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @for (int i = 0; i < 4; i++)
+                        {
+                            <tr>
+                                <th scope="row">@(i+1)</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>hola</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
