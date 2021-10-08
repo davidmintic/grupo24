@@ -54,12 +54,9 @@ namespace Veterinaria.App.Persistencia
         }
 
         IEnumerable <Veterinario> IRepositorioVeterinario.ObtenerTodosLosVeterinarios(){
-            return null;
+            return this.appContext.Veterinarios;
         }
-    
-        
-
-
+            
 
     }
 }

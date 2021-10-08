@@ -12,23 +12,23 @@ namespace Veterinaria.App.Consola
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            // AgregarVeterinario();
+            AgregarVeterinario();
             // BuscarVeterinario(1);
             // EliminarVeterinario(1);
-            EditarVeterinario();
+            // EditarVeterinario();
         }
 
 
          private static void AgregarVeterinario(){
             var veterinario = new Veterinario 
             {
-                Nombre = "Juan Pérez",
-                Telefono = "8965",
-                Edad = 18,
-                Direccion = "calle 10",
-                Correo=" juan@",
-                Contrasenia = "axccdfpo",
-                Especializacion = "veterinario felino",
+                Nombre = "Julián",
+                Telefono = "10",
+                Edad = 20,
+                Direccion = "calle 12",
+                Correo=" juian@",
+                Contrasenia = "www",
+                Especializacion = "veterinario no se sabe",
                 TarjetaProfesional = "hjagsu120",
                 FechaNacimiento = new DateTime(1985, 03, 15)
             };       

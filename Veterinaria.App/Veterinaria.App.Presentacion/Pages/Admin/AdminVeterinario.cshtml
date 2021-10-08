@@ -10,6 +10,61 @@
 
 <div id="accordion">
 
+
+    @* <button type="submit" class="btn btn-primary bg-danger" onclick="actualizarLista()">Actualizar lista</button> *@
+
+    <div class="card">
+
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#id-collapse-lista-veterinarios"
+                    aria-expanded="true" aria-controls="id-collapse-lista-veterinarios">
+                    Lista veterinarios
+                </button>
+            </h5>
+        </div>
+
+        <div id="id-collapse-lista-veterinarios" class="collapse show" aria-labelledby="headingOne"
+            data-parent="#accordion">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <form method="POST">
+                            @foreach (var v in Model.listaVeterinarios)
+                            {
+                                <tr>
+                                    @* <th scope="row">1</th> *@
+                                    <td>@v.Id</td>
+                                    <td>@v.Nombre</td>
+                                    <td>@v.Telefono</td>
+                                    <td>@v.Correo</td>
+
+                                    <td>
+                                        <button type="submit" class="btn btn-primary bg-success"
+                                        style="margin-right: 20px">Editar</button>
+                                        <button type="submit" class="btn btn-primary bg-danger" asp-page-handler="Del"
+                                        asp-route-idVeterinario="@v.Id">Eliminar</button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
 
         <div class="card-header" id="headingOne">
@@ -23,14 +78,14 @@
 
         <div id="id-collapse-admin-veterinario" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
-                <form>
+                <form method="POST">
                     <div class="container">
                         <div class="row">
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label for="id-nombre">Nombre</label>
-                                    <input id="id-nombre" type="email" class="form-control" aria-describedby="emailHelp"
-                                        placeholder="Digita tu nombre aquí">
+                                    <input id="id-nombre" type="text" class="form-control" aria-describedby="emailHelp"
+                                        placeholder="Digita tu nombre aquí" name="Nombre">
                                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with
                                         anyone
                                         else.</small>
@@ -40,13 +95,14 @@
                                 <div class="form-group">
                                     <label for="id-telefono">Teléfono</label>
                                     <input id="id-telefono" type="tel" class="form-control"
-                                        placeholder="Digita tu teléfono">
+                                        placeholder="Digita tu teléfono" name="Telefono">
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label for="id-edad">Edad</label>
-                                    <input id="id-edad" type="number" class="form-control" placeholder="Digita tu edad">
+                                    <input id="id-edad" type="number" class="form-control" placeholder="Digita tu edad"
+                                        name="Edad">
                                 </div>
                             </div>
                         </div>
@@ -58,14 +114,22 @@
                                 <div class="form-group">
                                     <label for="id-direccion">Dirección</label>
                                     <input id="id-direccion" type="text" class="form-control"
-                                        placeholder="Digita tu dirección">
+                                        placeholder="Digita tu dirección" name="Direccion">
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label for="id-correo">Correo</label>
                                     <input id="id-correo" type="email" class="form-control"
-                                        placeholder="Digita tu correo">
+                                        placeholder="Digita tu correo" name="Correo">
+                                </div>
+                            </div>
+
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="id-correo">Contraseña</label>
+                                    <input id="id-correo" type="password" class="form-control"
+                                        placeholder="Digita tu contraseña" name="Contrasenia">
                                 </div>
                             </div>
                         </div>
@@ -73,10 +137,10 @@
 
                     <div class="container" style="margin: 20px 20px 20px 15px;">
                         <div class="row">
-                            <button type="submit" class="btn btn-primary" style="margin-right: 20px">Agregar</button>
-                            <button type="submit" class="btn btn-primary bg-success"
-                                style="margin-right: 20px">Editar</button>
-                            <button type="submit" class="btn btn-primary bg-danger">Eliminar</button>
+                            <button type="submit" class="btn btn-primary" style="margin-right: 20px"
+                                asp-page-handler="Add">
+                                Agregar
+                            </button>
                         </div>
 
                     </div>
@@ -87,45 +151,42 @@
     </div>
 
 
-    <div class="card">
 
-        <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#id-collapse-lista-veterinarios"
-                    aria-expanded="true" aria-controls="id-collapse-lista-veterinarios">
-                    Lista veterinarios
-                </button>
-            </h5>
-        </div>
-
-        <div id="id-collapse-lista-veterinarios" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Correo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @for (int i = 0; i < 4; i++)
-                        {
-                            <tr>
-                                <th scope="row">@(i+1)</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>hola</td>
-                            </tr>
-                        }
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
 
 </div>
+
+
+
+
+<script>
+
+    function actualizarLista() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                alert(xhttp.responseText);
+
+            }
+        };
+
+        // Asíncrono
+        xhttp.open("GET", "https://localhost:4004/WeatherForecast", false);
+        xhttp.send();
+
+
+
+    @* $.ajax(
+        {
+        type: "GET", // la variable type guarda el tipo de la peticion GET,POST,..
+        url: "https://localhost:5004/Login", //url guarda la ruta hacia donde se hace la peticion
+        success: function (datos) { //success es una funcion que se utiliza si el servidor retorna informacion
+        alert(datos);
+        },
+        dataType: 'text' // El tipo de datos esperados del servidor. Valor predeterminado: Intelligent Guess (xml, json, script, text, html).
+        }
+        ); *@
+
+    }
+
+</script>
