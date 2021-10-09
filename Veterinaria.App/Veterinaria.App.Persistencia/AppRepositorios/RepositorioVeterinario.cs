@@ -14,9 +14,9 @@ namespace Veterinaria.App.Persistencia
             this.appContext = appContext;
         }
 
-
-
         Veterinario IRepositorioVeterinario.AgregarVeterinario(Veterinario veterinario){
+            
+            // veterinario.FechaRegistro = DateTime.Now;
             var veterinarioAdicionado = this.appContext.Veterinarios.Add(veterinario);
             this.appContext.SaveChanges();
             return  null;
@@ -42,11 +42,11 @@ namespace Veterinaria.App.Persistencia
         }
 
         void IRepositorioVeterinario.EliminarVeterinario(int idVeterinario){
-                var veterinarioEncontrado =  this.appContext.Veterinarios.FirstOrDefault(p => p.Id == idVeterinario);
-                if(veterinarioEncontrado != null) {
-                    this.appContext.Veterinarios.Remove(veterinarioEncontrado);
-                    this.appContext.SaveChanges();
-                }
+            var veterinarioEncontrado =  this.appContext.Veterinarios.FirstOrDefault(p => p.Id == idVeterinario);
+            if(veterinarioEncontrado != null) {
+                this.appContext.Veterinarios.Remove(veterinarioEncontrado);
+                this.appContext.SaveChanges();
+            }
         }
 
         Veterinario IRepositorioVeterinario.ObtenerVeterinario(int idVeterinario){

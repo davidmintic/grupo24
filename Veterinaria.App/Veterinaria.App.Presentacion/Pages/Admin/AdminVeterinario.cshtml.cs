@@ -14,15 +14,25 @@ namespace Veterinaria.App.Presentacion.Pages
 
         private static IRepositorioVeterinario repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
 
-        public String titulo {get; set; }
+        public String titulo {get; set; } =  "Bienvenidos estimados estudiantes";
         // public List <Veterinario> listaVeterinarios = new List<Veterinario>();
         public IEnumerable <Veterinario> listaVeterinarios;
 
+        public Veterinario veterinarioActual;
+        public String modoPage = "adicion";
 
-        public void OnGet()
+        public void OnGet(int idVeterinario)
         {
-           this.titulo = "Bienvenidos estimados estudiantes";
+
+            if(idVeterinario > 0) {
+                this.modoPage = "edicion";
+                this.veterinarioActual = repositorioVeterinario.ObtenerVeterinario(idVeterinario);
+            } else {
+                this.modoPage = "adicion";
+            }
+
            this.listaVeterinarios = repositorioVeterinario.ObtenerTodosLosVeterinarios();
+
         }
 
         public void OnPostAdd(Veterinario vetetinario){

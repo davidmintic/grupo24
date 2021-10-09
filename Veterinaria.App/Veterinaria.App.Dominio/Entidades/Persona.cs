@@ -9,5 +9,6 @@ namespace Veterinaria.App.Dominio
        public String Direccion{get; set;}
        public String Correo{get; set;}
        public String Contrasenia{get; set;}
+    //    public DateTime FechaRegistro{get; set;}
     }
 }
