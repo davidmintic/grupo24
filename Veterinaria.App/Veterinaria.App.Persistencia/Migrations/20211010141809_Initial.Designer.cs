@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Veterinaria.App.Persistencia;
 
 namespace Veterinaria.App.Persistencia.Migrations
 {
     [DbContext(typeof(AppContext))]
-    partial class AppContextModelSnapshot : ModelSnapshot
+    [Migration("20211010141809_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace Veterinaria.App.Persistencia.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("fechaNacimiento")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nombre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("raza")

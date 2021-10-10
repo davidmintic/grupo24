@@ -10,8 +10,8 @@ using Veterinaria.App.Persistencia;
 namespace Veterinaria.App.Persistencia.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20210924021124_Initial")]
-    partial class Initial
+    [Migration("20211010142503_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,32 @@ namespace Veterinaria.App.Persistencia.Migrations
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("Veterinaria.App.Dominio.Mascota", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("CuidadorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("fechaNacimiento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("raza")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CuidadorId");
+
+                    b.ToTable("Mascotas");
+                });
 
             modelBuilder.Entity("Veterinaria.App.Dominio.Persona", b =>
                 {
@@ -57,6 +83,13 @@ namespace Veterinaria.App.Persistencia.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Persona");
                 });
 
+            modelBuilder.Entity("Veterinaria.App.Dominio.Cuidador", b =>
+                {
+                    b.HasBaseType("Veterinaria.App.Dominio.Persona");
+
+                    b.HasDiscriminator().HasValue("Cuidador");
+                });
+
             modelBuilder.Entity("Veterinaria.App.Dominio.Veterinario", b =>
                 {
                     b.HasBaseType("Veterinaria.App.Dominio.Persona");
@@ -71,6 +104,20 @@ namespace Veterinaria.App.Persistencia.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Veterinario");
+                });
+
+            modelBuilder.Entity("Veterinaria.App.Dominio.Mascota", b =>
+                {
+                    b.HasOne("Veterinaria.App.Dominio.Cuidador", "Cuidador")
+                        .WithMany("mascotas")
+                        .HasForeignKey("CuidadorId");
+
+                    b.Navigation("Cuidador");
+                });
+
+            modelBuilder.Entity("Veterinaria.App.Dominio.Cuidador", b =>
+                {
+                    b.Navigation("mascotas");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,12 +9,12 @@ using Veterinaria.App.Dominio;
 
 namespace Veterinaria.App.Presentacion.Pages
 {
-    public class AdminVeterinarioModel : PageModel
+    public class AdminCuidadorModel : PageModel
     {
-
+        
         private static IRepositorioVeterinario repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
 
-        public String titulo {get; set; } =  "Bienvenido al administrador de veterinarios";
+        public String titulo {get; set; } =  "Bienvenido al administrador de cuidadores";
         // public List <Veterinario> listaVeterinarios = new List<Veterinario>();
         public IEnumerable <Veterinario> listaVeterinarios;
 
@@ -52,5 +52,4 @@ namespace Veterinaria.App.Presentacion.Pages
             this.listaVeterinarios = repositorioVeterinario.ObtenerTodosLosVeterinarios();
         }
     }
-
 }

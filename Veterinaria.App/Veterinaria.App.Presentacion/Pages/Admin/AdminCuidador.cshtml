@@ -1,0 +1,191 @@
+﻿@page
+@model Veterinaria.App.Presentacion.Pages.AdminCuidadorModel
+@{
+}
+
+
+
+<h3 style="color: #929292; font-size: 24px; font-weight: 400; margin-top: 25px; margin-bottom: 25px;">
+    @Model.titulo
+</h3>
+
+
+<div id="accordion">
+
+
+    @* <button type="submit" class="btn btn-primary bg-danger" onclick="actualizarLista()">Actualizar lista</button> *@
+
+    <div class="card">
+
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#id-collapse-lista-veterinarios"
+                    aria-expanded="true" aria-controls="id-collapse-lista-veterinarios">
+                    Lista cuidadores
+                </button>
+            </h5>
+        </div>
+
+        <div id="id-collapse-lista-veterinarios"
+        class="@(Model.modoPage == "adicion" ? "collapse show" : "collapse")"
+         aria-labelledby="headingOne"
+            data-parent="#accordion">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var v in Model.listaVeterinarios)
+                        {
+                            <tr>
+                                @* <th scope="row">1</th> *@
+                                <td>@v.Id</td>
+                                <td>@v.Nombre</td>
+                                <td>@v.Telefono</td>
+                                <td>@v.Correo</td>
+
+                                <td>
+                                    <div class="container" style="max-width: 435px; margin: 0;">
+                                        <div class="row" style="max-width: inherit;">
+                                            <div class="col-sm" style="max-width: fit-content;">
+                                                <a  class="btn btn-primary bg-success"
+                                                asp-page="/Admin/AdminVeterinario" asp-route-idVeterinario="@v.Id"
+                                                style="margin-right: 20px">Editar</a>
+                                            </div>
+                                            <div class="col-sm" style="max-width: fit-content;">
+                                                <form method="POST">
+                                                    <button type="submit" class="btn btn-primary bg-danger" asp-page-handler="Del"
+                                                            asp-route-idVeterinario="@v.Id">Eliminar</button>
+                                                </form>
+                                            </div>  
+
+                                             <div class="col-sm" style="max-width: fit-content;">
+                                                    <a  class="btn btn-primary bg-info"
+                                                        asp-page="/Admin/AdminVeterinario" asp-route-idVeterinario="@v.Id"
+                                                        style="margin-right: 20px">Ver mascotas</a>
+                                             </div>                                                                                                                            
+                                        </div>
+                                    </div>                                                                    
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#id-collapse-admin-veterinario"
+                    aria-expanded="true" aria-controls="id-collapse-admin-veterinario">
+                    Administrar cuidador
+                </button>
+            </h5>
+        </div>
+
+        <div id="id-collapse-admin-veterinario"
+         class="@(Model.modoPage == "edicion" ? "collapse show" : "collapse")"
+         aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="container">
+
+                        <div class="row">
+
+                             <input  asp-for="@Model.veterinarioActual.Id"
+                                    type="hidden" class="form-control"name="Id">
+
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label >Nombre <b>(*)</b></label>
+                                    <input autocomplete="off"
+                                    asp-for="@Model.veterinarioActual.Nombre"
+                                    type="text" class="form-control"  required
+                                        placeholder="Digita tu nombre aquí" name="Nombre">
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="id-telefono">Teléfono</label>
+                                    <input  required
+                                    asp-for="@Model.veterinarioActual.Telefono"
+                                    type="tel" class="form-control"
+                                        placeholder="Digita tu teléfono" name="Telefono">
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label>Edad</label>
+                                    <input  required asp-for="@Model.veterinarioActual.Edad" type="number" class="form-control" placeholder="Digita tu edad"
+                                        name="Edad">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="id-direccion">Dirección</label>
+                                    <input required asp-for="@Model.veterinarioActual.Direccion"  type="text" class="form-control"
+                                        placeholder="Digita tu dirección" name="Direccion">
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label>Correo</label>
+                                    <input required asp-for="@Model.veterinarioActual.Correo" type="email" class="form-control"
+                                        placeholder="Digita tu correo" name="Correo">
+                                </div>
+                            </div>
+
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label>Contraseña</label>
+                                    <input required asp-for="@Model.veterinarioActual.Contrasenia" type="password" class="form-control"
+                                        placeholder="Digita tu contraseña" name="Contrasenia">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container" style="margin: 20px 20px 20px 15px;">
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary" style="margin-right: 20px"
+                                asp-page-handler="Add">
+                                Agregar
+                            </button>
+                        
+                        @if(Model.modoPage == "edicion") {
+                            <button type="submit" class="btn btn-primary" style="margin-right: 20px"
+                                asp-page-handler="Edit">
+                                Editar
+                            </button>
+                        }
+
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
