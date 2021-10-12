@@ -1,5 +1,5 @@
 ﻿@page
-@model Veterinaria.App.Presentacion.Pages.AdminCuidadorModel
+@model Veterinaria.App.Presentacion.AdminMascotaModel
 @{
 }
 
@@ -21,9 +21,11 @@
             <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" data-target="#id-collapse-lista-veterinarios"
                     aria-expanded="true" aria-controls="id-collapse-lista-veterinarios">
-                    Lista cuidadores
-                </button>
+                    Lista mascotas
+                </button>                
             </h5>
+             <a type="submit" class="btn btn-primary"  asp-page="/Admin/AdminCuidador" 
+             style="position: absolute;top: 12px; right: 20px;">Regresar</a>
         </div>
 
         <div id="id-collapse-lista-veterinarios"
@@ -36,22 +38,18 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col">Raza</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach (var v in Model.listaCuidadores)
+                        @foreach (var v in Model.cuidadorActual.Mascotas)
                         {
                             <tr>
                                 @* <th scope="row">1</th> *@
                                 <td>@v.Id</td>
-                                <td>@v.Nombre</td>
-                                <td>@v.Telefono</td>
-                                <td>@v.Correo</td>
-
+                                <td>@v.nombre</td>
+                                <td>@v.raza</td>
                                 <td>
                                     <div class="container" style="max-width: 435px; margin: 0;">
                                         <div class="row" style="max-width: inherit;">
@@ -69,7 +67,7 @@
 
                                              <div class="col-sm" style="max-width: fit-content;">
                                                     <a  class="btn btn-primary bg-info"
-                                                        asp-page="/Admin/AdminMascota" asp-route-idCuidador="@v.Id"
+                                                        asp-page="/Admin/AdminVeterinario" asp-route-idCuidador="@v.Id"
                                                         style="margin-right: 20px">Ver mascotas</a>
                                              </div>                                                                                                                            
                                         </div>
@@ -89,7 +87,7 @@
             <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" data-target="#id-collapse-admin-veterinario"
                     aria-expanded="true" aria-controls="id-collapse-admin-veterinario">
-                    Información del cuidador
+                    Información de la mascota
                 </button>
             </h5>
         </div>
@@ -104,63 +102,42 @@
                         <div class="row">
 
                              <input  asp-for="@Model.cuidadorActual.Id"
-                                    type="hidden" class="form-control"name="Id">
+                                    type="hidden" class="form-control"name="CuidadorId">
 
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label >Nombre <b>(*)</b></label>
                                     <input autocomplete="off"
-                                    asp-for="@Model.cuidadorActual.Nombre"
+                                    asp-for="@Model.mascotaActual.nombre"
                                     type="text" class="form-control"  required
-                                        placeholder="Digita tu nombre aquí" name="Nombre">
+                                        placeholder="Digita tu nombre aquí" name="nombre">
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="form-group">
-                                    <label for="id-telefono">Teléfono</label>
-                                    <input  required
-                                    asp-for="@Model.cuidadorActual.Telefono"
-                                    type="tel" class="form-control"
-                                        placeholder="Digita tu teléfono" name="Telefono">
+                                     <label class="mr-2 p-2">Seleccione la raza: </label>
+                                    <select required  asp-for="@Model.mascotaActual.raza" name="raza" 
+                                    class="form-select form-select-lg mb-3 p-2" aria-label=".form-select-lg example">
+                                        @* <option value="Internista">Pincher</option>
+                                        <option value="Cirujano">San bernardo</option> *@
+                                        @foreach (var v in Model.listaVeterinarios){
+                                            <option value="@v.Id">@v.Nombre</option>
+                                        }
+
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm">
                                 <div class="form-group">
-                                    <label>Edad</label>
-                                    <input  required asp-for="@Model.cuidadorActual.Edad" type="number" class="form-control" placeholder="Digita tu edad"
-                                        name="Edad">
+                                    <label>Fecha de nacimiento</label>
+                                    <input  required asp-for="@Model.mascotaActual.fechaNacimiento" type="date" class="form-control"
+                                        name="fechaNacimiento">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label for="id-direccion">Dirección</label>
-                                    <input required asp-for="@Model.cuidadorActual.Direccion"  type="text" class="form-control"
-                                        placeholder="Digita tu dirección" name="Direccion">
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label>Correo</label>
-                                    <input required asp-for="@Model.cuidadorActual.Correo" type="email" class="form-control"
-                                        placeholder="Digita tu correo" name="Correo">
-                                </div>
-                            </div>
-
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label>Contraseña</label>
-                                    <input asp-for="@Model.cuidadorActual.Contrasenia" type="password" class="form-control"
-                                        placeholder="Digita tu contraseña" name="Contrasenia">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+  
                     <div class="container" style="margin: 20px 20px 20px 15px;">
                         <div class="row">
                             <button type="submit" class="btn btn-primary" style="margin-right: 20px"

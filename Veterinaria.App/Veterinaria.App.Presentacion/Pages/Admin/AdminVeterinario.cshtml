@@ -59,10 +59,41 @@
                                                 style="margin-right: 20px">Editar</a>
                                             </div>
                                             <div class="col-sm">
-                                                <form method="POST">
+                                                @* <form method="POST">
                                                     <button type="submit" class="btn btn-primary bg-danger" asp-page-handler="Del"
                                                             asp-route-idVeterinario="@v.Id">Eliminar</button>
-                                                </form>
+                                                </form> *@
+
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                   Eliminar
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Debes confirmar</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                       ¿Estás seguro de eliminar el veterinario?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                        @* <button type="button" class="btn btn-primary">Sí</button> *@
+                                                        <form method="POST">
+                                                            <button type="submit" class="btn btn-primary bg-danger" asp-page-handler="Del"
+                                                            asp-route-idVeterinario="@v.Id">Sí</button>
+                                                         </form> 
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+
                                             </div>                                          
                                         </div>
                                     </div>                                                                    
@@ -146,8 +177,23 @@
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label>Contraseña</label>
-                                    <input required asp-for="@Model.veterinarioActual.Contrasenia" type="password" class="form-control"
+                                    <input asp-for="@Model.veterinarioActual.Contrasenia" type="password" class="form-control"
                                         placeholder="Digita tu contraseña" name="Contrasenia">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                 <div class="form-group">
+                                    <label class="mr-2 p-2">Seleccione la especialización: </label>
+                                    <select required  asp-for="@Model.veterinarioActual.Especializacion" name="Especializacion" 
+                                    class="form-select form-select-lg mb-3 p-2" aria-label=".form-select-lg example">
+                                        <option value="Internista">Internista</option>
+                                        <option value="Cirujano">Cirujano</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

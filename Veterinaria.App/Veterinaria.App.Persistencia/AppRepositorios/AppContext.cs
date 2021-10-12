@@ -20,7 +20,7 @@ namespace Veterinaria.App.Persistencia
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
 
-            modelBuilder.Entity<Mascota>().HasOne(x => x.Cuidador);
+            modelBuilder.Entity<Mascota>().HasOne(c => c.Cuidador).WithMany(m => m.Mascotas).IsRequired();
 
         }
         

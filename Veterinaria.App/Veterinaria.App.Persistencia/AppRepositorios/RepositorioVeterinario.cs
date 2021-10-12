@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Veterinaria.App.Persistencia
 {
-    public class RepositorioVeterinario :  IRepositorioVeterinario
+    public class RepositorioVeterinario :  IRepositorioGenerico
     {
         private readonly AppContext appContext;
 
@@ -14,16 +14,20 @@ namespace Veterinaria.App.Persistencia
             this.appContext = appContext;
         }
 
-        Veterinario IRepositorioVeterinario.AgregarVeterinario(Veterinario veterinario){
+        Object IRepositorioGenerico.Agregar(Object nuevoRegistro){
             
             // veterinario.FechaRegistro = DateTime.Now;
-            var veterinarioAdicionado = this.appContext.Veterinarios.Add(veterinario);
+            
+            Veterinario nuevoVeterinario = (Veterinario) nuevoRegistro;
+            var veterinarioAdicionado = this.appContext.Veterinarios.Add(nuevoVeterinario);
             this.appContext.SaveChanges();
             return  null;
         }
 
 
-        Veterinario IRepositorioVeterinario.EditarVeterinario(Veterinario nuevoVeterinario){
+        Object IRepositorioGenerico.Editar(Object nuevoRegistro){
+
+            Veterinario nuevoVeterinario = (Veterinario) nuevoRegistro;
 
             var veterinarioEncontrado =  this.appContext.Veterinarios.FirstOrDefault(p => p.Id == nuevoVeterinario.Id);
 
@@ -41,7 +45,7 @@ namespace Veterinaria.App.Persistencia
             return veterinarioEncontrado;
         }
 
-        void IRepositorioVeterinario.EliminarVeterinario(int idVeterinario){
+        void IRepositorioGenerico.Eliminar(int idVeterinario){
             var veterinarioEncontrado =  this.appContext.Veterinarios.FirstOrDefault(p => p.Id == idVeterinario);
             if(veterinarioEncontrado != null) {
                 this.appContext.Veterinarios.Remove(veterinarioEncontrado);
@@ -49,11 +53,11 @@ namespace Veterinaria.App.Persistencia
             }
         }
 
-        Veterinario IRepositorioVeterinario.ObtenerVeterinario(int idVeterinario){
+        Object IRepositorioGenerico.ObtenerRegistro(int idVeterinario){
             return this.appContext.Veterinarios.FirstOrDefault(p => p.Id == idVeterinario);
         }
 
-        IEnumerable <Veterinario> IRepositorioVeterinario.ObtenerTodosLosVeterinarios(){
+        IEnumerable <Object> IRepositorioGenerico.ObtenerTodosLosRegistros(){
             return this.appContext.Veterinarios;
         }
             

@@ -12,44 +12,49 @@ namespace Veterinaria.App.Presentacion.Pages
     public class AdminCuidadorModel : PageModel
     {
         
-        private static IRepositorioVeterinario repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
+        private static IRepositorioGenerico repositorioCuidador = new RepositorioCuidador(new Persistencia.AppContext());
 
-        public String titulo {get; set; } =  "Bienvenido al administrador de cuidadores";
-        // public List <Veterinario> listaVeterinarios = new List<Veterinario>();
-        public IEnumerable <Veterinario> listaVeterinarios;
+        public String titulo {get; set; } =  "Mascotas";
+        // public List <Cuidador> listaCuidadores = new List<Cuidador>();
+        public IEnumerable <Cuidador> listaCuidadores;
 
-        public Veterinario veterinarioActual;
+        public Cuidador cuidadorActual;
         public String modoPage = "adicion";
 
-        public void OnGet(int idVeterinario)
+        public void OnGet(int idCuidador)
         {
 
-            if(idVeterinario > 0) {
+            if(idCuidador > 0) {
                 this.modoPage = "edicion";
-                this.veterinarioActual = repositorioVeterinario.ObtenerVeterinario(idVeterinario);
+                this.cuidadorActual = (Cuidador)repositorioCuidador.ObtenerRegistro(idCuidador);
+                this.titulo = "Mascotas de " + this.cuidadorActual.Nombre;
             } else {
                 this.modoPage = "adicion";
             }
 
-           this.listaVeterinarios = repositorioVeterinario.ObtenerTodosLosVeterinarios();
+            this.ActualizarInformacion();
 
         }
 
-        public void OnPostAdd(Veterinario vetetinario){
-            repositorioVeterinario.AgregarVeterinario(vetetinario);
-            this.listaVeterinarios = repositorioVeterinario.ObtenerTodosLosVeterinarios();
+        public void OnPostAdd(Cuidador cuidador){
+            repositorioCuidador.Agregar(cuidador);
+             this.ActualizarInformacion();
         }
 
-         public void OnPostDel(int idVeterinario){
+         public void OnPostDel(int idCuidador){
 
-            repositorioVeterinario.EliminarVeterinario(idVeterinario);
-            this.listaVeterinarios = repositorioVeterinario.ObtenerTodosLosVeterinarios();
+            repositorioCuidador.Eliminar(idCuidador);
+             this.ActualizarInformacion();
         }
 
-         public void OnPostEdit(Veterinario vetetinario){
+         public void OnPostEdit(Cuidador cuidador){
 
-            repositorioVeterinario.EditarVeterinario(vetetinario);
-            this.listaVeterinarios = repositorioVeterinario.ObtenerTodosLosVeterinarios();
+            repositorioCuidador.Editar(cuidador);
+            this.ActualizarInformacion();
+        }
+
+        public void ActualizarInformacion(){
+             this.listaCuidadores = (IEnumerable <Cuidador>)repositorioCuidador.ObtenerTodosLosRegistros();
         }
     }
 }

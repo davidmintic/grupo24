@@ -36,8 +36,9 @@ namespace Veterinaria.App.Persistencia.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     raza = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     fechaNacimiento = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CuidadorId = table.Column<int>(type: "int", nullable: true)
+                    CuidadorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,7 +48,7 @@ namespace Veterinaria.App.Persistencia.Migrations
                         column: x => x.CuidadorId,
                         principalTable: "Personas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

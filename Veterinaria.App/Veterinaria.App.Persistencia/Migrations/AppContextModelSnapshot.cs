@@ -26,7 +26,7 @@ namespace Veterinaria.App.Persistencia.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CuidadorId")
+                    b.Property<int>("CuidadorId")
                         .HasColumnType("int");
 
                     b.Property<string>("fechaNacimiento")
@@ -107,15 +107,17 @@ namespace Veterinaria.App.Persistencia.Migrations
             modelBuilder.Entity("Veterinaria.App.Dominio.Mascota", b =>
                 {
                     b.HasOne("Veterinaria.App.Dominio.Cuidador", "Cuidador")
-                        .WithMany("mascotas")
-                        .HasForeignKey("CuidadorId");
+                        .WithMany("Mascotas")
+                        .HasForeignKey("CuidadorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cuidador");
                 });
 
             modelBuilder.Entity("Veterinaria.App.Dominio.Cuidador", b =>
                 {
-                    b.Navigation("mascotas");
+                    b.Navigation("Mascotas");
                 });
 #pragma warning restore 612, 618
         }

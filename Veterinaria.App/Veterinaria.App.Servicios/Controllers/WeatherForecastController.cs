@@ -18,7 +18,7 @@ namespace Veterinaria.App.Servicios.Controllers
 
 
 
-         private static IRepositorioVeterinario repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
+         private static IRepositorioGenerico repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
 
         // private readonly ILogger<WeatherForecastController> _logger;
 

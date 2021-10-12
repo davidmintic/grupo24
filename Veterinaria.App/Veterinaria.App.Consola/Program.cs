@@ -7,19 +7,19 @@ namespace Veterinaria.App.Consola
     class Program
     {
 
-        private static IRepositorioVeterinario repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
+        private static IRepositorioGenerico repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
 
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            AgregarVeterinario();
+            Agregar();
             // BuscarVeterinario(1);
             // EliminarVeterinario(1);
             // EditarVeterinario();
         }
 
 
-         private static void AgregarVeterinario(){
+         private static void Agregar(){
             var veterinario = new Veterinario 
             {
                 Nombre = "Julián",
@@ -32,18 +32,18 @@ namespace Veterinaria.App.Consola
                 TarjetaProfesional = "hjagsu120",
                 FechaNacimiento = new DateTime(1985, 03, 15)
             };       
-            repositorioVeterinario.AgregarVeterinario(veterinario);
+            repositorioVeterinario.Agregar(veterinario);
         }
 
 
         private static void BuscarVeterinario(int idVeterinario) {
-           var veterinario = repositorioVeterinario.ObtenerVeterinario(idVeterinario);
+           var veterinario = (Veterinario)repositorioVeterinario.ObtenerRegistro(idVeterinario);
            Console.WriteLine("El veterinario es: " + veterinario.Nombre + " y su edad es: " +  veterinario.Edad);
         }
 
 
         private static void EliminarVeterinario(int idVeterinario) {
-            repositorioVeterinario.EliminarVeterinario(idVeterinario);
+            repositorioVeterinario.Eliminar(idVeterinario);
         }
 
 
@@ -62,7 +62,7 @@ namespace Veterinaria.App.Consola
                 FechaNacimiento = new DateTime(1985, 03, 15)
             };       
 
-            repositorioVeterinario.EditarVeterinario(veterinario);
+            repositorioVeterinario.Editar(veterinario);
         }
 
 

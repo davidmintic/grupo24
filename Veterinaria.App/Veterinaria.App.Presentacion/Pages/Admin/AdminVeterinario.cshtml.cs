@@ -12,7 +12,7 @@ namespace Veterinaria.App.Presentacion.Pages
     public class AdminVeterinarioModel : PageModel
     {
 
-        private static IRepositorioVeterinario repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
+        private static IRepositorioGenerico repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
 
         public String titulo {get; set; } =  "Bienvenido al administrador de veterinarios";
         // public List <Veterinario> listaVeterinarios = new List<Veterinario>();
@@ -26,30 +26,34 @@ namespace Veterinaria.App.Presentacion.Pages
 
             if(idVeterinario > 0) {
                 this.modoPage = "edicion";
-                this.veterinarioActual = repositorioVeterinario.ObtenerVeterinario(idVeterinario);
+                this.veterinarioActual = (Veterinario)repositorioVeterinario.ObtenerRegistro(idVeterinario);
             } else {
                 this.modoPage = "adicion";
             }
 
-           this.listaVeterinarios = repositorioVeterinario.ObtenerTodosLosVeterinarios();
+           this.ActualizarInformacion();
 
         }
 
         public void OnPostAdd(Veterinario vetetinario){
-            repositorioVeterinario.AgregarVeterinario(vetetinario);
-            this.listaVeterinarios = repositorioVeterinario.ObtenerTodosLosVeterinarios();
+            repositorioVeterinario.Agregar(vetetinario);
+            this.ActualizarInformacion();
         }
 
          public void OnPostDel(int idVeterinario){
 
-            repositorioVeterinario.EliminarVeterinario(idVeterinario);
-            this.listaVeterinarios = repositorioVeterinario.ObtenerTodosLosVeterinarios();
+            repositorioVeterinario.Eliminar(idVeterinario);
+            this.ActualizarInformacion();
         }
 
          public void OnPostEdit(Veterinario vetetinario){
 
-            repositorioVeterinario.EditarVeterinario(vetetinario);
-            this.listaVeterinarios = repositorioVeterinario.ObtenerTodosLosVeterinarios();
+            repositorioVeterinario.Editar(vetetinario);
+            this.ActualizarInformacion();
+        }
+
+           public void ActualizarInformacion(){
+             this.listaVeterinarios = (IEnumerable <Veterinario>)repositorioVeterinario.ObtenerTodosLosRegistros();
         }
     }
 
